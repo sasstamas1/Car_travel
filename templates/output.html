@@ -11,5 +11,14 @@
     <a href="inputdata">Adatok bevitele</a>
     <a class="active" href="outputdata">Adatok lekérdezése</a>
 </div>
+
+ <form action="{{ url_for('findtraveldata') }}" method="post">
+     <h1 id="header" class="error">{{ error }}</h1>
+     <label><input class="box" type="text" name="carsnumber" placeholder="Autó rendszám (pl. XXX-999)" pattern="[A-Z]{3}-[0-9]{3}"
+       required></label>
+     <label><input class="box" type="date" name="begindate"></label>
+     <label><input class="box" type="date" name="enddate"></label>
+     <input type="submit" name="Keresés" value="Keresés" class="save">
+ </form>
 </body>
 </html>

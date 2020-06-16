@@ -53,5 +53,32 @@ body {
 
 }
 
+.save {
+    margin: 50px auto;
+    display: block;
+    width: 180px;
+    height: 50px;
+    border: 3px solid white;
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 1000ms, color 1000ms;
+}
+
+.save:hover {
+    background-color: rgba(255, 255, 255, 1);
+    color: #222;
+    cursor: pointer;
+    transition: background-color 1000ms, color 1000ms;
+}
 
 
+.error {
+    margin: auto;
+    color: red;
+    font-family: sans-serif;
+    font-size: 20pt;
+    align-items: center;
+}

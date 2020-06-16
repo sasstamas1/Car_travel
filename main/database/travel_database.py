@@ -9,20 +9,30 @@ dbh = c["traveldb"]
 
 def savetraveldata(travel):
     travel_ = {
-        "cardsnumber": travel.carsnumber,
+        "carsnumber": travel.carsnumber,
         "from": travel.from_,
         "where": travel.where,
         "date": travel.date,
-        "km": travel.km
+        "km": travel.km,
+        "fuel": travel.fuel
     }
 
     dbh.Travels.insert_one(travel_)
 
 
-def allfilm():
+def alltravel():
     travels = dbh.Travels.find({})
     t = []
     for travel in travels:
         t.append(travel)
+    return t
 
+
+def findtravels_bycarsnumberanddate(carsnumber, begindate, enddate):
+    print(carsnumber)
+    travels = dbh.Travels.find({'carsnumber': carsnumber})
+    t = []
+    for travel in travels:
+        if begindate <= travel['date'] <= enddate:
+            t.append(travel)
     return t
