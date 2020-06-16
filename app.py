@@ -36,8 +36,33 @@ def savenewdata():
 
 @app.route('/finddata', methods=['POST'])
 def findtraveldata():
-    print(findtravels_bycarsnumberanddate(request.form['carsnumber'],request.form['begindate'],request.form['enddate']))
-    return render_template("output.html")
+    if (request.form['carsnumber'] is not "" and request.form['carsnumber'] is not None and
+            request.form['begindate'] is not "" and request.form['enddate'] is not None and
+            request.form['begindate'] is not "" and request.form['enddate'] is not None):
+        findedtravels = findtravels_bycarsnumberanddate(request.form['carsnumber'], request.form['begindate'],
+                                                        request.form['enddate'])
+        totalkm = totalkmcalc(findedtravels)
+        totalfuel = totalfuelcalc(findedtravels)
+        consumption = str(round((totalfuel / totalkm) * 100, 2))
+    else:
+        error = "Hiányzó adat!"
+        return render_template("output.html", error=error)
+    return render_template("carsdatapage.html", travels=findedtravels, totalkm=totalkm, totalfuel=totalfuel,
+                           consumption=consumption)
+
+
+def totalkmcalc(findedtravels):
+    count = 0
+    for travels in findedtravels:
+        count += int(travels['km'])
+    return count
+
+
+def totalfuelcalc(findedtravels):
+    count = 0
+    for travels in findedtravels:
+        count += int(travels['fuel'])
+    return count
 
 
 if __name__ == '__main__':

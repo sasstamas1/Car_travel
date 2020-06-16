@@ -29,7 +29,6 @@ def alltravel():
 
 
 def findtravels_bycarsnumberanddate(carsnumber, begindate, enddate):
-    print(carsnumber)
     travels = dbh.Travels.find({'carsnumber': carsnumber})
     t = []
     for travel in travels:

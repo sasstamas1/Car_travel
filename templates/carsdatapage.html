@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/datapage.css">
+    <title>Utazás</title>
+</head>
+<body>
+<div class="topnav">
+    <a href="inputdata">Adatok bevitele</a>
+    <a class="active" href="outputdata">Adatok lekérdezése</a>
+</div>
+
+<h1 class="title1">A autóhoz tartozó utazások a megadott időintervallumban</h1>
+
+<table id="myTable">
+    <tr>
+        <th style="width: 50px;">#</th>
+        <th>Rendszám</th>
+        <th>Honnan?</th>
+        <th>Hova?</th>
+        <th>Távolság (km)</th>
+        <th>Elhasznált üzemanyag (l)</th>
+    </tr>
+    {% for travel in travels %}
+    <tr style="background-color: #f2f2f2;">
+            <td name="index">{{ loop.index}}</td>
+            <td name="carsnumber">{{travel.carsnumber}}</td>
+            <td name="from">{{travel.from}}</td>
+            <td name="where">{{travel.where}}</td>
+            <td name="km">{{travel.km}}</td>
+            <td name="fuel">{{travel.fuel}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<table id="myTable1">
+    <tr>
+        <th>Összesen megtett út (km)</th>
+        <th>Összes elhasznált üzemanyag (l)</th>
+        <th>Átlagfogyasztám (100km/l)</th>
+    </tr>
+    <tr style="background-color: #f2f2f2;">
+            <td>{{ totalkm }}</td>
+            <td>{{ totalfuel }}</td>
+            <td>{{ consumption }}</td>
+
+    </tr>
+</table>
+
+</body>
+</html>
