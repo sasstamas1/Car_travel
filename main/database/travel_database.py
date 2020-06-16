@@ -35,3 +35,18 @@ def findtravels_bycarsnumberanddate(carsnumber, begindate, enddate):
         if begindate <= travel['date'] <= enddate:
             t.append(travel)
     return t
+
+
+def findtravels_bydates(carsnumber, begindate, enddate):
+    travels = dbh.Travels.find({'carsnumber': carsnumber})
+    temp = False
+    for t in travels:
+        if t is not None:
+            if begindate <= t['date'] <= enddate:
+                temp = True
+    if temp:
+        print(temp)
+        return True
+    else:
+        print(temp)
+        return False

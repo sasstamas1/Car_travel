@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 
 from main.model.travel import Travel
-from main.database.travel_database import savetraveldata, findtravels_bycarsnumberanddate
+from main.database.travel_database import savetraveldata, findtravels_bycarsnumberanddate, \
+    findtravels_bydates
 
 app = Flask(__name__)
 
@@ -39,11 +40,17 @@ def findtraveldata():
     if (request.form['carsnumber'] is not "" and request.form['carsnumber'] is not None and
             request.form['begindate'] is not "" and request.form['enddate'] is not None and
             request.form['begindate'] is not "" and request.form['enddate'] is not None):
-        findedtravels = findtravels_bycarsnumberanddate(request.form['carsnumber'], request.form['begindate'],
-                                                        request.form['enddate'])
-        totalkm = totalkmcalc(findedtravels)
-        totalfuel = totalfuelcalc(findedtravels)
-        consumption = str(round((totalfuel / totalkm) * 100, 2))
+        if findtravels_bydates(request.form['carsnumber'],
+                               request.form['begindate'],
+                               request.form['enddate']):
+            findedtravels = findtravels_bycarsnumberanddate(request.form['carsnumber'], request.form['begindate'],
+                                                            request.form['enddate'])
+            totalkm = totalkmcalc(findedtravels)
+            totalfuel = totalfuelcalc(findedtravels)
+            consumption = str(round((totalfuel / totalkm) * 100, 2))
+        else:
+            error = "Nincs ilyen utazás!"
+            return render_template("output.html", error=error)
     else:
         error = "Hiányzó adat!"
         return render_template("output.html", error=error)
